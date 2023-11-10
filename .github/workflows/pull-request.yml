@@ -12,6 +12,7 @@ on: # yamllint disable-line rule:truthy
 permissions:
   contents: write
   pull-requests: write
+  id-token: write
 
 jobs:
   pull-request:
@@ -29,4 +30,4 @@ jobs:
         uses: diillson/auto-pull-request@4cf50b3681cd76250f37841466e61e514a377064
         with:
           destination_branch: "main"
-          #github_token: ${{ secrets.PAT }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
