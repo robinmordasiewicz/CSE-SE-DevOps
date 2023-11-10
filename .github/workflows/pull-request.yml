@@ -1,0 +1,29 @@
+---
+name: Auto Pull Request
+
+on: # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - "*"
+      - "!main"
+      - "!release-please--branches*"
+      - "!gh-pages"
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        with:
+         token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+      - name: pull-request
+        uses: diillson/auto-pull-request@4cf50b3681cd76250f37841466e61e514a377064
+        with:
+          destination_branch: "main"
+          github_token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
